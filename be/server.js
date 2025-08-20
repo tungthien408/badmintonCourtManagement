@@ -1,45 +1,9 @@
-// server.js - Main Express server for Badminton Court Management System
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-require('dotenv').config();
+const { app, PORT } = require('./config/config');
+const Court = require('./models/Court');
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('🍃 Connected to MongoDB'))
-  .catch(err => console.error('❌ MongoDB connection error:', err));
-
-// Court Model (defines the structure of a court in the database)
-const Court = mongoose.model('Court', {
-  name: String,
-  isAvailable: Boolean
-});
-
-// Middleware
-app.use(cors()); // Allow frontend to communicate with backend
-app.use(express.json()); // Parse JSON requests
-
-// Basic route to test server
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Welcome to Badminton Court Management API!',
-    status: 'Server is running successfully' 
-  });
-});
-
-// API routes - Now using MongoDB!
-app.get('/api/courts', async (req, res) => {
-  try {
-    const courts = await Court.find(); // Fetch all courts from database
-    res.json({ courts });
-  } catch (error) {
-    console.error('Error fetching courts:', error);
-    res.status(500).json({ error: 'Failed to fetch courts' });
-  }
-});
+// Import routes
+require('./routes/test');
+require('./routes/courts');
 
 // Helper function to add sample data if database is empty
 async function initializeSampleData() {
