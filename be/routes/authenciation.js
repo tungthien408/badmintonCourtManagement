@@ -21,7 +21,7 @@ app.post('/api/auth/login', async (req, res) => {
         if (!account || account.passwordHash !== digest) {
             return res.status(401).json({ message: 'Cannot find user' });
         } else {
-            var token = jwt.sign({date: new Date().toISOString(), id: account._id, role: account.role}, JWT_SECRET);
+            var token = jwt.sign({date: Date.now(), id: account._id, role: account.role}, JWT_SECRET, {expiresIn: '1h'});
             return res.status(200).json({message: 'authenticate sucessfully', token: token});
         }
 
