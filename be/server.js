@@ -4,6 +4,7 @@ const Court = require('./models/Court');
 // Import routes
 require('./routes/test');
 require('./routes/courts');
+require('./routes/authenciation');
 
 // Helper function to add sample data if database is empty
 async function initializeSampleData() {

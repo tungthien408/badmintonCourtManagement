@@ -1,8 +1,24 @@
 const mongoose = require('mongoose');
 
-const Court = mongoose.model('Court', {
-  name: String,
-  isAvailable: Boolean
+const CourtSchema = new mongoose.Schema({
+  branchId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Branch',
+    required: true
+  },
+  courtTypeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CourtType',
+    required: false
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  isAvailable: {
+    type: Boolean,
+    default: true
+  }
 });
 
-module.exports = Court;
+module.exports = mongoose.model('Court', CourtSchema);

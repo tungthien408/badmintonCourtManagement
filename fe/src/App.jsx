@@ -1,46 +1,37 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CourtPage from './admin/components/CourtPage';
+import LoginForm from './shared/components/LoginForm';
 
 function App() {
-  const [courts, setCourts] = useState([])
-
-  useEffect(() => {
-    // Fetch courts data from our backend
-    fetch('http://localhost:5000/api/courts')
-      .then(response => response.json())
-      .then(data => {
-        setCourts(data.courts)
-      })
-      .catch(error => {
-        console.error('Error fetching courts:', error)
-      })
-  }, [])
-
+  async function onLogin({username, password}) {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password})
+      });
+      const data = await response.json();
+      if (response.ok) {
+        // save token to somewhere
+        // redirect/update UI
+        console.log('Login successfully')
+      } else {
+        alert(data.message || 'Login failed')
+      }
+    } catch (error) {
+      alert('Network error');
+    }
+  }
+  
   return (
-    <>
-      <h1>🏸 Badminton Court Management</h1>
-      <h2>Available Courts</h2>
-      
-      {courts.length === 0 ? (
-        <p>Loading courts...</p>
-      ) : (
-        <div>
-          {courts.map(court => (
-            <div key={court.id} style={{ 
-              padding: '10px', 
-              margin: '10px', 
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              backgroundColor: court.isAvailable ? '#e8f5e8' : '#ffe8e8'
-            }}>
-              <h3>Court {court.name}</h3>
-              <p>Status: {court.isAvailable ? '✅ Available' : '❌ Booked'}</p>
-            </div>
-          ))}
-        </div>
-      )}
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginForm onLogin={onLogin} />} />
+        <Route path='/courts' element={<CourtPage />} />
+        <Route path='/login' element={<LoginForm onLogin={onLogin} />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
