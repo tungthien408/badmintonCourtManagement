@@ -1,28 +1,10 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import '../../App.css'
-import CourtCard from './CourtCard'
-import { jwtDecode } from "jwt-decode";
+import { useState, useEffect } from 'react';
+import '../../App.css';
+import CourtCard from './CourtCard';
+import { useAuthRedirect } from '../../shared/hooks/useAuthRedirect';
 
 function CourtPage() {
-  const navigate = useNavigate();
-  // verify JWT Token
-  useEffect(() => {
-    const token = sessionStorage.getItem('jwtToken');
-    if (!token) {
-      navigate('/login');
-    } else {
-      const decoded = jwtDecode(token);
-      if (decoded.exp * 1000 < Date.now()) {
-        console.log("navigated from courts => login", Date.now() - decoded.date);
-        navigate('/login');
-      } else if (decoded.role === 'customer') {
-        navigate('/booking');
-      }
-    }
-  }, [navigate]);
-
-
+  useAuthRedirect();
   function onClick(court) {
     if (selectedCourt && selectedCourt.id == court.id) {
       setSelectedCourt(null);

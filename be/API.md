@@ -8,7 +8,7 @@
 **Request:** Thông tin người dùng  
 **Response:** Token và thông tin người dùng
 
-#### 1.2. Đăng nhập
+#### 1.2. Đăng nhập (chưa hoàn thiện)
 
 **Endpoint:** `POST /api/auth/login`  
 **Request:** Username, Password  

@@ -1,26 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from "jwt-decode";
+import { useAuthRedirect } from '../hooks/useAuthRedirect';
+import TextInput from './TextInput';
 
 function LoginForm({ onLogin }) {
-    const navigate = useNavigate();
-    // verify JWT Token
-
-    useEffect(() => {
-        const token = sessionStorage.getItem('jwtToken');
-        if (token) {
-            const decoded = jwtDecode(token);
-            if (decoded.exp * 1000 < Date.now()) {
-                console.log("navigated from login => login", Date.now() - decoded.date);
-                navigate('/login');
-            } else if (decoded.role === 'customer') {
-                navigate('/booking');
-            } else {
-                navigate('/courts');
-            }
-        }
-    }, [navigate]);
-
+    useAuthRedirect();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -31,14 +14,8 @@ function LoginForm({ onLogin }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div style={{ padding: "10px" }}>
-                <label htmlFor="username">Username: </label>
-                <input id="username" type="text" value={username} onChange={e => setUsername(e.target.value)} />
-            </div>
-            <div style={{ padding: "10px" }}>
-                <label htmlFor="password">Password: </label>
-                <input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            </div>
+            <TextInput label="Username" id="username" value={username} onChange={e => setUsername(e.target.value)} />
+            <TextInput label="Password" id="password" value={password} type="password" onChange={e => setPassword(e.target.value)} />
             <button type="submit">Login</button>
         </form>
     );

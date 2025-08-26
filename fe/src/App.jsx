@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import CourtPage from './admin/components/CourtPage';
 import LoginForm from './shared/components/LoginForm';
 import BookingPage from './customer/components/BookingPage';
+import RegisterPage from './customer/components/RegisterPage';
 import { jwtDecode } from "jwt-decode";
 
 function App() {
@@ -28,7 +29,29 @@ function App() {
         alert(data.message || 'Login failed')
       }
     } catch (error) {
-      alert('Network error');
+      alert('Login: Network error');
+    }
+  }
+
+  async function onRegister({name, phone, email, username, password}) {
+    console.log({ name, phone, email, username, password });
+    try {
+      const response = await fetch('http://localhost:5000/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, email, username, password })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert('Registration successful');
+        return true;
+      } else {
+        alert(data.message || 'Registration failed');
+        return 1;
+      }
+    } catch (error) {
+      alert('Register Human: Network error');
+      return 1;
     }
   }
 
@@ -38,6 +61,7 @@ function App() {
       <Route path='/courts' element={<CourtPage />} />
       <Route path='/login' element={<LoginForm onLogin={onLogin} />} />
       <Route path='/booking' element={<BookingPage />} />
+      <Route path='/register' element={<RegisterPage onLogin={onLogin} onRegister={onRegister} />} />
     </Routes>
   );
 }
