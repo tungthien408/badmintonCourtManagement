@@ -16,16 +16,11 @@ function RegisterPage({ onLogin, onRegister }) {
     const [repassword, setRepassword] = useState('');
 
     async function handleSubmit(e) {
-        console.log("Submitting registration");
         e.preventDefault();
         if (password === repassword) {
             const success = await onRegister({ name, phone, email, username, password })
             if (success) {
-                console.log("Registered succeed, now login");
                 onLogin({ username, password });
-            } else {
-                alert("Cannot login, please do it yourself.");
-                navigate('/login');
             }
         }
     }

@@ -34,7 +34,6 @@ function App() {
   }
 
   async function onRegister({name, phone, email, username, password}) {
-    console.log({ name, phone, email, username, password });
     try {
       const response = await fetch('http://localhost:5000/api/users', {
         method: 'POST',
@@ -43,15 +42,14 @@ function App() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert('Registration successful');
         return true;
       } else {
         alert(data.message || 'Registration failed');
-        return 1;
+        return false;
       }
     } catch (error) {
       alert('Register Human: Network error');
-      return 1;
+      return false;
     }
   }
 
