@@ -149,7 +149,7 @@
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
 
-#### 2.5. Xóa chia nhánh
+#### 2.5. Xóa sân
 
 **Endpoint:** `DELETE /api/courts/{id}` 
 **Response:** Thông báo thành công
@@ -177,6 +177,11 @@
 **Endpoint:** `GET /api/priceList/{id}`  
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
+
+#### 3.5. Xóa bảng giá 
+
+**Endpoint:** `DELETE /api/priceList/{id}`  
+**Response:** Thông báo thành công
 
 ### 4. Quản lý người dùng
 
@@ -283,5 +288,65 @@
 **Endpoint:** `DELETE /api/courttypes/{id}`  
 **Response:** Thông báo thành công
 
-### 8. Thống kê
+### 8. Quản lý thanh toán
+
+#### 8.1. Lấy danh sách thanh toán
+
+**Endpoint:** `GET /api/payments`  
+**Parameters:** `page`, `limit`, `search`, [status], `date_start`, `date_end`  
+**Response:** Danh sách thanh toán
+
+#### 8.2. Lấy chi tiết thanh toán
+
+**Endpoint:** `GET /api/payments/{id}`  
+**Response:** Chi tiết thanh toán đầy đủ
+
+#### 8.3. Cập nhật trạng thái thanh toán
+
+**Endpoint:** `PUT /api/payments/status`  
+**Request:** Trạng thái mới, ghi chú  
+**Response:** Thông tin đơn hàng đã cập nhật
+
+#### 8.4. Hủy thanh toán
+
+**Endpoint:** `PUT /api/payments/{id}/cancel`  
+**Request:** Lý do hủy  
+**Response:** Thông tin thanh toán đã cập nhật
+
+#### 8.5. Tạo thanh toán (khách khi đặt sân trực tiếp)
+
+**Endpoint:** `POST /api/payments`  
+**Request:** Thông tin thanh toán, phương thức thanh toán  
+**Response:** Thông tin thanh toán
+
+#### 8.6. Áp dụng mã giảm giá (khách khi đặt sân trực tiếp)
+
+**Endpoint:** `POST /api/payments/voucher`  
+**Request:** Mã giảm giá  
+**Response:** Thông tin giỏ hàng đã áp dụng mã giảm giá
+
+
+### 9. Thống kê
+
+#### 9.1. Thống kê theo thời gian
+
+**Endpoint:** `GET /api/statistics/revenue-cost`  
+**Parameters:** `year`, [type] (year, month, day)  
+**Response:** Dữ liệu thống kê doanh thu theo thời gian
+
+#### 9.2. Thống kê doanh thu theo loại sân
+ 
+**Endpoint:** `GET /api/admin/statistics/revenue-courtstype`  
+**Parameters:** `year`, `month`, `limit`  
+**Response:** Dữ liệu doanh thu theo từng loại sân\
+
+#### 9.3. Thống kê doanh thu theo chia nhánh
+ 
+**Endpoint:** `GET /api/admin/statistics/revenue-branch`  
+**Parameters:** `year`, `month`, `limit`  
+**Response:** Dữ liệu doanh thu theo từng chia nhánh
+
+
+
+
 
