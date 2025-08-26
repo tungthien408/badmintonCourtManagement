@@ -2,11 +2,8 @@ import '../../App.css';
 import { useAuthRedirect } from '../../shared/hooks/useAuthRedirect';
 import { useState } from 'react';
 import TextInput from '../../shared/components/TextInput';
-import { useNavigate } from 'react-router-dom';
-
 
 function RegisterPage({ onLogin, onRegister }) {
-    const navigate = useNavigate();
     useAuthRedirect({ unauthenticatedRedirect: '/register' });
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -31,7 +28,7 @@ function RegisterPage({ onLogin, onRegister }) {
                 <div>
                     <TextInput label="Name" id="name" value={name} onChange={e => setName(e.target.value)} />
                     <TextInput label="Phone" id="phone" value={phone} onChange={e => setPhone(e.target.value)} pattern="^0(2|3|5|7|8|9)[0-9]{8}$" />
-                    <TextInput label="Email" id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required={false} />
+                    <TextInput label="Email" id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required={false} pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
                 </div>
                 <div>
                     <TextInput label="Username" id="username" value={username} onChange={e => setUsername(e.target.value)} />
