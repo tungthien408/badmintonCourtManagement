@@ -13,11 +13,16 @@ function LoginForm({ onLogin }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <TextInput label="Username" id="username" value={username} onChange={e => setUsername(e.target.value)} />
-            <TextInput label="Password" id="password" value={password} type="password" onChange={e => setPassword(e.target.value)} />
-            <button type="submit">Login</button>
-        </form>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <TextInput label="Username" id="username" value={username} onChange={e => setUsername(e.target.value)} />
+                <TextInput label="Password" id="password" value={password} type="password" onChange={e => setPassword(e.target.value)} />
+                <button type="submit">Login</button>
+            </form>
+            <p>
+                First time? <a href='./register'>Click here.</a>
+            </p>
+        </div>
     );
 }
 

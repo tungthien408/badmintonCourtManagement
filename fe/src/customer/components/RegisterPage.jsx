@@ -20,7 +20,7 @@ function RegisterPage({ onLogin, onRegister }) {
         e.preventDefault();
         if (password === repassword) {
             const success = await onRegister({ name, phone, email, username, password })
-            if (success){
+            if (success) {
                 console.log("Registered succeed, now login");
                 onLogin({ username, password });
             } else {
@@ -31,19 +31,24 @@ function RegisterPage({ onLogin, onRegister }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <TextInput label="Name" id="name" value={name} onChange={e => setName(e.target.value)} />
-                <TextInput label="Phone" id="phone" value={phone} onChange={e => setPhone(e.target.value)} pattern="^0(2|3|5|7|8|9)[0-9]{8}$" />
-                <TextInput label="Email" id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required={false} />
-            </div>
-            <div>
-                <TextInput label="Username" id="username" value={username} onChange={e => setUsername(e.target.value)} />
-                <TextInput label="Password" id="password" value={password} type="password" onChange={e => setPassword(e.target.value)} />
-                <TextInput label="Re-Password" id="repassword" value={repassword} type="password" onChange={e => setRepassword(e.target.value)} />
-            </div>
-            <button type="submit">Register</button>
-        </form>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <TextInput label="Name" id="name" value={name} onChange={e => setName(e.target.value)} />
+                    <TextInput label="Phone" id="phone" value={phone} onChange={e => setPhone(e.target.value)} pattern="^0(2|3|5|7|8|9)[0-9]{8}$" />
+                    <TextInput label="Email" id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required={false} />
+                </div>
+                <div>
+                    <TextInput label="Username" id="username" value={username} onChange={e => setUsername(e.target.value)} />
+                    <TextInput label="Password" id="password" value={password} type="password" onChange={e => setPassword(e.target.value)} />
+                    <TextInput label="Re-Password" id="repassword" value={repassword} type="password" onChange={e => setRepassword(e.target.value)} />
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p>
+                Have an account? <a href='./login'>Click here.</a>
+            </p>
+        </div>
     );
 }
 
