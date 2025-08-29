@@ -55,7 +55,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<LoginForm onLogin={onLogin} />} />
+      <Route path="/" element={<BookingPage />} />
       <Route path='/courts' element={<CourtPage />} />
       <Route path='/login' element={<LoginForm onLogin={onLogin} />} />
       <Route path='/booking' element={<BookingPage />} />
