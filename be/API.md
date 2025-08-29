@@ -57,7 +57,7 @@
 **Request:** Cập nhật thông tin đặt sân cụ thể (giờ, hủy đặt,...) 
 **Response:** Thông tin đặt sân đã cập nhật
 
-#### 2.3. Lấy danh sách các sân đã đặt
+#### 2.3. Lấy danh sách các sân đã đặt (chưa hoàn thành)
 
 **Endpoint:** `GET /api/users/booking`  
 **Parameters:** `page`, `limit`, `search`, [status] ,`date_start`, `date_end`  
@@ -65,7 +65,7 @@
 
 #### 2.4. Lấy thông tin chi tiết của một đặt sân cụ thể
 
-**Endpoint:** `GET /api/users/booking/{id}`  
+**Endpoint:** `GET /api/users/booking/{id}`
 **Response:** Chi tiết đầy đủ của một đặt sân cụ thể
 
 ### 3.Thanh toán
