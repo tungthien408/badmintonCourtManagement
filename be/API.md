@@ -5,14 +5,53 @@
 #### 1.1. Đăng ký tài khoản ✅
 
 **Endpoint:** `POST /api/users`  
-**Request:** Thông tin người dùng  
-**Response:** Token và thông tin người dùng
+**Request Body (JSON):**
+```
+{
+    "name": "Nguyễn Văn A",
+    "phone": "0987654321",
+    "email": "a@gmail.com",
+    "username": "nguyenvana",
+    "password": "12345678"
+}
+```
+**Response Body (201 Created):** Thông tin người dùng
+```
+{
+    "message": "Registration success",
+    human: {
+        "name": "Nguyễn Văn A",
+        "phone": "0987654321",
+        "email": "a@gmail.com",
+        "username": "nguyenvana",
+        "password": "12345678"
+    }
+    account: {
+        "humanId": "123",
+        "usernane": "nguyenvana",
+        "passwordHash": "aslkfdjakhsglkasdfkl"
+        "role": "customer"
+    }
+}
+```
 
 #### 1.2. Đăng nhập (chưa hoàn thiện)
 
 **Endpoint:** `POST /api/auth/login`  
-**Request:** Username, Password  
-**Response:** Token và thông tin người dùng
+**Request Body (JSON):**
+```
+{
+    "username": "nguyenvana",
+    "password": "123456"
+}
+```
+**Response Body (200 OK):**
+```
+{
+    "message": "Authenticate Successfully",
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRlIjoxNzU2NDU4Njk0NDU1LCJpZCI6IjY4YTlhZjg5YzMzNzNkZDA0ZmE1YTFmNiIsInJvbGUiOiJvd25lciIsImlhdCI6MTc1NjQ1ODY5NCwiZXhwIjoxNzU2NDYyMjk0fQ.mt3meSteWHXJebFK8WvRWBPv6JQJjf1rtcO3XLwlf4o"
+}
+```
 
 #### 1.3. Lấy thông tin người dùng 
 
@@ -48,8 +87,19 @@
 #### 2.1. Tạo đặt sân mới
 
 **Endpoint:** `POST /api/users/booking`  
-**Request:** Thông tin đặt sân 
-**Response:** Thông tin đã đặt sân
+**Request Body (JSON):**
+```
+{
+    "customerId": "123",
+    "courtId": "234",
+    "staffId": "staff01",
+    "status": "pending",
+    "bookingTime": "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)",
+    "startTime": "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)"
+    "endTime": "Wed Dec 19 2012 01:03:25 GMT-0500 (EST)"
+}
+```
+**Response: 201 Created** 
 
 #### 2.2. Cập nhật thông tin đặt sân
 
@@ -94,32 +144,40 @@
 
 ## II. API cho phần Admin
 
-### 1. Quản lý chia nhánh
+### 1. Quản lý chi nhánh
 
-#### 1.1. Lấy danh sách chia nhánh  
+#### 1.1. Lấy danh sách chi nhánh  
 
 **Endpoint:** `GET /api/branch` 
 **Parameters:** `page`, `limit`, `search`, [status], `date_start`, `date_end`  
 **Response:** Danh sách chi nhánh với thông tin chi tiết
 
-#### 1.2. Thêm chia nhánh mới
+#### 1.2. Thêm chi nhánh mới
 
 **Endpoint:** `POST /api/branch` 
-**Request:** Thông tin chia nhánh, thời gian hoạt động, địa điểm 
-**Response:** Thông tin chia nhánh đã tạo
+**Request Body (JSON):** 
+```
+{
+    "ownerId": "1",
+    "name": "Sân cầu lông Passion Sport",
+    "phone": "0987654321",
+    "address": "123 Đường XYZ, Phường Chánh Hưng, TPHCM"
+}
+```
+**Response: 201 Created**
 
-#### 1.3. Lấy chi tiết chia nhánh
+#### 1.3. Lấy chi tiết chi nhánh
 
 **Endpoint:** `GET /api/branch`  
-**Response:** Chi tiết đầy đủ của chia nhánh
+**Response:** Chi tiết đầy đủ của chi nhánh
 
-#### 1.4. Cập nhật thông tin chia nhánh
+#### 1.4. Cập nhật thông tin chi nhánh
 
 **Endpoint:** `GET /api/branch/{id}`  
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
 
-#### 1.5. Xóa chia nhánh
+#### 1.5. Xóa chi nhánh
 
 **Endpoint:** `DELETE /api/branch/{id}` 
 **Response:** Thông báo thành công
@@ -135,8 +193,16 @@
 #### 2.2. Thêm sân mới
 
 **Endpoint:** `POST /api/courts` 
-**Request:** Thông tin sân, giá , tên sân
-**Response:** Thông tin sân đã tạo
+**Request Body (JSON):**
+```
+{
+    "branchId": "213",
+    "courtTypeId": [optional],
+    "name": "A",
+    "isAvailable", true
+}
+```
+**Response: 201 Created**
 
 #### 2.3. Lấy chi tiết sân
 
@@ -164,7 +230,15 @@
 #### 3.2. Thêm bảng giá mới
 
 **Endpoint:** `POST /api/priceList` 
-**Request:** Thông tin giá 
+**Request Body (JSON):**
+```
+{
+    "branchId": "124",
+    "courtTypeId": [optional],
+    "price": 50000,
+    "date": 1 // => Hiển thị thứ trong tuần
+}
+``` 
 **Response:** Thông tin giá đã tạo
 
 #### 3.3. Lấy chi tiết bảng giá
@@ -340,7 +414,7 @@
 **Parameters:** `year`, `month`, `limit`  
 **Response:** Dữ liệu doanh thu theo từng loại sân\
 
-#### 9.3. Thống kê doanh thu theo chia nhánh
+#### 9.3. Thống kê doanh thu theo chi nhánh
  
 **Endpoint:** `GET /api/admin/statistics/revenue-branch`  
 **Parameters:** `year`, `month`, `limit`  

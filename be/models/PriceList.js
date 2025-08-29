@@ -9,7 +9,7 @@ const PriceListSchema = new mongoose.Schema({
     courtTypeId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CourtType',
-        required: true
+        required: false
     },
     price: {
         type: Number,
