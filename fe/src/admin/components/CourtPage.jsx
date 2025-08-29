@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import '../../App.css';
+// import '../../App.css';
 import CourtCard from './CourtCard';
+// import Navbar from '../../customer/components/Navbar';
 import { useAuthRedirect } from '../../shared/hooks/useAuthRedirect';
 
 function CourtPage() {
@@ -46,16 +47,25 @@ function CourtPage() {
 
   return (
     <>
+      {/* <Navbar /> */}
       <h1>🏸 Badminton Court Management</h1>
-      <h2>Available Courts</h2>
+      <p className="text-lg m-2">Available Courts</p>
 
       {courts.length === 0 ? (
         <p>Loading courts...</p>
       ) : (
-        courts.map(
-          court => (
-            <CourtCard key={court._id} court={court} selectedCourt={selectedCourt} onClick={() => onClick(court)} />
-          ))
+        <div className="m-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {courts.map(
+            court => (
+              <CourtCard
+                key={court._id}
+                court={court}
+                selectedCourt={selectedCourt}
+                onClick={() => onClick(court)}
+              />
+            )
+          )}
+        </div>
       )}
     </>
   )

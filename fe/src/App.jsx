@@ -60,6 +60,7 @@ function App() {
       <Route path='/login' element={<LoginForm onLogin={onLogin} />} />
       <Route path='/booking' element={<BookingPage />} />
       <Route path='/register' element={<RegisterPage onLogin={onLogin} onRegister={onRegister} />} />
+      {/* <Route path='/logout' element={<LogoutBtn />} /> */}
     </Routes>
   );
 }

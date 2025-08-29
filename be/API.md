@@ -2,7 +2,7 @@
 
 ### 1. Tài khoản người dùng
 
-#### 1.1. Đăng ký tài khoản 
+#### 1.1. Đăng ký tài khoản ✅
 
 **Endpoint:** `POST /api/users`  
 **Request:** Thông tin người dùng  
@@ -39,7 +39,7 @@
 
 #### 1.7. Đặt lại mật khẩu 
 
-**Endpoint:** `POST /api/auth/reset-password`  
+**Endpoint:** `POST /api/auth/reset-password`
 **Request:** Token, mật khẩu mới  
 **Response:** Thông báo thành công
 

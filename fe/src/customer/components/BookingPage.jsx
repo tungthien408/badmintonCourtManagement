@@ -1,11 +1,15 @@
-import '../../App.css'
+// import '../../App.css'
+import Navbar from '../../customer/components/Navbar';
 
 function BookingPage() {
     return (
         <>
-        <h1>Hello world!</h1>
-        <h2>Booking page</h2>
-        <p>Not Available Yet.</p>
+            <Navbar />
+            <div className="pt-16">
+                <h1>Hello world!</h1>
+                <h2>Booking page</h2>
+                <p>Not Available Yet.</p>
+            </div>
         </>
     )
 }
