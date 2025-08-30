@@ -1,4 +1,5 @@
-import LogoutBtn from '../../shared/components/LogoutBtn';
+
+import Menu from '../../shared/components/Menu';
 import LoginBtn from '../../customer/components/LoginBtn';
 
 function Navbar() {
@@ -11,7 +12,7 @@ function Navbar() {
                 <li><a href="/booking" className="hover:underline">Đặt sân</a></li>
                 <li><a href="/courts" className="hover:underline">Quản lý</a></li>
                 <li><a href="#" className="hover:underline">Khu vực</a></li>
-                <li>{logined ? <LogoutBtn /> : <LoginBtn />}</li>
+                <li>{logined ? <Menu /> : <Menu />}</li>
             </ul>
         </nav>
     )

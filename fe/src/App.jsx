@@ -5,6 +5,7 @@ import LoginForm from './shared/components/LoginForm';
 import BookingPage from './customer/components/BookingPage';
 import RegisterPage from './customer/components/RegisterPage';
 import { jwtDecode } from "jwt-decode";
+import UsersPage from './customer/components/UsersPage';
 
 function App() {
   const navigate = useNavigate();
@@ -59,8 +60,10 @@ function App() {
       <Route path='/courts' element={<CourtPage />} />
       <Route path='/login' element={<LoginForm onLogin={onLogin} />} />
       <Route path='/booking' element={<BookingPage />} />
+             <Route path='/users/me' element={<UsersPage />} />
       <Route path='/register' element={<RegisterPage onLogin={onLogin} onRegister={onRegister} />} />
       {/* <Route path='/logout' element={<LogoutBtn />} /> */}
+
     </Routes>
   );
 }
