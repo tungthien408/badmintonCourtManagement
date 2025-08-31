@@ -10,6 +10,7 @@ export function useAuthRedirect({ unauthenticatedRedirect = '/login' } = {}) {
         if (token) {
             const decoded = jwtDecode(token);
             if (decoded.exp * 1000 < Date.now()) {
+                sessionStorage.removeItem('jwtToken');
                 navigate(unauthenticatedRedirect);
             } else if (decoded.role === 'customer') {
                 navigate('/booking');
