@@ -11,3 +11,8 @@ const JWT_SECRET = process.env.JWT_SECRET
     if good => next('path-to-routes')
     if not => res.status(401).json({message: "Access denied"})
 */
+
+function verifyToken(req, res, next) {
+    const token = req.headers.authorization;
+    
+}

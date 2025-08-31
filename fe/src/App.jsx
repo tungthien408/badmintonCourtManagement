@@ -34,7 +34,7 @@ function App() {
     }
   }
 
-  async function onRegister({name, phone, email, username, password}) {
+  async function onRegister({ name, phone, email, username, password }) {
     try {
       const response = await fetch('http://localhost:5000/api/users', {
         method: 'POST',
@@ -54,13 +54,23 @@ function App() {
     }
   }
 
+  // async function getUserInfo() {
+  //   const token = sessionStorage.getItem('jwtToken');
+    
+  //   try {
+
+  //   } catch (error) {
+
+  //   }
+  // }
+
   return (
     <Routes>
       <Route path="/" element={<BookingPage />} />
       <Route path='/courts' element={<CourtPage />} />
       <Route path='/login' element={<LoginForm onLogin={onLogin} />} />
       <Route path='/booking' element={<BookingPage />} />
-             <Route path='/users/me' element={<UsersPage />} />
+      <Route path='/users/me' element={<UsersPage />} />
       <Route path='/register' element={<RegisterPage onLogin={onLogin} onRegister={onRegister} />} />
       {/* <Route path='/logout' element={<LogoutBtn />} /> */}
 
