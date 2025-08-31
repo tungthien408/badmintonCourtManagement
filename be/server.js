@@ -9,10 +9,6 @@ require('./routes/human');
 require('./routes/authenciation');
 require('./routes/register');
 
-// Routes
-const userRoutes = require('./routes/users');
-app.use('/api/users', userRoutes);
-
 
 // Helper function to add sample data if database is empty
 async function initializeSampleData() {
