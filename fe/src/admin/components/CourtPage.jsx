@@ -14,12 +14,17 @@ function CourtPage() {
     }
   }
 
-  const [courts, setCourts] = useState([])
-  const [selectedCourt, setSelectedCourt] = useState(null)
+  const [courts, setCourts] = useState([]);
+  const [selectedCourt, setSelectedCourt] = useState(null);
+  const token = sessionStorage.getItem('jwtToken');
 
   useEffect(() => {
     // Fetch courts data from our backend
-    fetch('http://localhost:5000/api/courts')
+    fetch('http://localhost:5000/api/courts'), {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
       .then(response => response.json())
       .then(data => {
         setCourts(data.courts)
