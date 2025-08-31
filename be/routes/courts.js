@@ -1,9 +1,9 @@
-const {verifyToken} = require('../middleware/middleware');
 
-const { app } = require('../config/config');
-const Court = require('../models/Court');
+import { verifyRole } from '../middleware/middleware.js';
+import { app } from '../config/config.js';
+import Court from '../models/Court.js';
 
-app.get('/api/courts', verifyToken, async (req, res) => {
+app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
   try {
     const courts = await Court.find(); // Fetch all courts from database
     res.json({ courts });

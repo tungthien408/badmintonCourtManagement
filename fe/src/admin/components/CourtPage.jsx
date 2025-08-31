@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-// import '../../App.css';
 import CourtCard from './CourtCard';
-// import Navbar from '../../customer/components/Navbar';
 import { useAuthRedirect } from '../../shared/hooks/useAuthRedirect';
 
 function CourtPage() {

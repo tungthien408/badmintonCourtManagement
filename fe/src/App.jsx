@@ -3,6 +3,7 @@ import CourtPage from './admin/components/CourtPage';
 import LoginForm from './shared/components/LoginForm';
 import BookingPage from './customer/components/BookingPage';
 import RegisterPage from './customer/components/RegisterPage';
+import UsersPage from './customer/components/UsersPage';
 
 import useAuth from './shared/hooks/useAuth';
 import useRegister from './customer/hooks/useRegister';
@@ -17,7 +18,7 @@ function App() {
       <Route path='/courts' element={<CourtPage />} />
       <Route path='/login' element={<LoginForm onLogin={login} />} />
       <Route path='/booking' element={<BookingPage />} />
-      {/* <Route path='/users/me' element={<UsersPage />} /> */}
+      <Route path='/users/me' element={<UsersPage />} />
       <Route path='/register' element={<RegisterPage onLogin={login} onRegister={register} />} />
 
       {/* <Route path='/logout' element={<LogoutBtn />} /> */}

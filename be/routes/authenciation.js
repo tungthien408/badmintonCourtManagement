@@ -30,6 +30,6 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
-app.get('/api/auth/me', async (req, res) => {
-    // TODO
-});
+// app.get('/api/auth/me', async (req, res) => {
+//     // TODO
+// });

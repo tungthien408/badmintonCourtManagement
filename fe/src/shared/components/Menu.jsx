@@ -14,7 +14,7 @@ function Menu() {
                 Menu
             </button>
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                <div className="absolute right-0 mt-2 w-48 bg-black rounded-md shadow-lg z-10">
                     <UserInfo />
                     <Logout />
                 </div>
