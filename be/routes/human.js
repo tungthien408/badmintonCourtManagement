@@ -14,18 +14,18 @@ app.get('/api/human', verifyRole("staff", "owner", "customer"), async (req, res)
   }
 });
 
-app.get(`/api/human/:id`, verifyRole("staff", "owner", "customer"), async (req, res) => {
-  try {
-    const id = req.params.id;
-    const Human = await Human.findById(id);
-    if (!Human) {
-      return res.status(404).json({ message: 'Human not found' });
-    }
-    res.json({ Human });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// app.get(`/api/human/:id`, verifyRole("staff", "owner", "customer"), async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     const Human = await Human.findById(id);
+//     if (!Human) {
+//       return res.status(404).json({ message: 'Human not found' });
+//     }
+//     res.json({ Human });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
 // xem thông tin của mình
 app.get('/api/users/me', verifyRole("staff", "owner", "customer"), async (req, res) => {

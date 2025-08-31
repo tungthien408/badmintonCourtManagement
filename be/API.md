@@ -53,10 +53,19 @@
 }
 ```
 
-#### 1.3. Lấy thông tin người dùng 
+#### 1.3. Lấy thông tin người dùng ✅
 
 **Endpoint:** `GET /api/users/me`  
-**Response:** Thông tin chi tiết người dùng
+**Response Body (JSON):**
+```
+{
+    "human": {
+        "_id": "68a993f85e472db9bc93b524",
+        "name": "Admin",
+        "phone": "0987654321"
+    }
+}
+```
 
 #### 1.4. Cập nhật thông tin cá nhân 
 
@@ -146,13 +155,26 @@
 
 ### 1. Quản lý chi nhánh
 
-#### 1.1. Lấy danh sách chi nhánh  
+#### 1.1. Lấy danh sách chi nhánh  ✅
 
 **Endpoint:** `GET /api/branch` 
 **Parameters:** `page`, `limit`, `search`, [status], `date_start`, `date_end`  
-**Response:** Danh sách chi nhánh với thông tin chi tiết
+**Response: 200 OK** 
+```
+{
+    "branches": [
+        {
+            "_id": "68a9b422eee708f4c12c741f",
+            "ownerId": "68a993f85e472db9bc93b524",
+            "name": "Hung Phu Badminton",
+            "phone": "0987654321",
+            "address": "299 Bui Minh Truc, TPHCM"
+        }
+    ]
+}
+```
 
-#### 1.2. Thêm chi nhánh mới
+#### 1.2. Thêm chi nhánh mới ✅
 
 **Endpoint:** `POST /api/branch` 
 **Request Body (JSON):** 
@@ -166,14 +188,14 @@
 ```
 **Response: 201 Created**
 
-#### 1.3. Lấy chi tiết chi nhánh
+#### 1.3. Lấy chi tiết chi nhánh 
 
 **Endpoint:** `GET /api/branch`  
 **Response:** Chi tiết đầy đủ của chi nhánh
 
 #### 1.4. Cập nhật thông tin chi nhánh
 
-**Endpoint:** `GET /api/branch/{id}`  
+**Endpoint:** `PUT /api/branch/{id}`  
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
 
@@ -184,6 +206,7 @@
 
 
 ### 2. Quản lý sân
+
 #### 2.1. Lấy danh sách sân
 
 **Endpoint:** `GET /api/courts` 
@@ -221,6 +244,7 @@
 **Response:** Thông báo thành công
 
 ### 3. Quản lý bảng giá
+
 #### 3.1. Lấy danh bảng giá 
 
 **Endpoint:** `GET /api/priceList` 

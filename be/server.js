@@ -1,14 +1,12 @@
-const { app, PORT } = require('./config/config');
-const Court = require('./models/Court');
+import { app, PORT } from './config/config.js';
+import Court from './models/Court.js';
 
-
-// Import routes
-require('./routes/test');
-require('./routes/courts');
-require('./routes/human');
-require('./routes/authenciation');
-require('./routes/register');
-
+import './routes/test.js';
+import './routes/courts.js';
+import './routes/human.js';
+import './routes/authenciation.js';
+import './routes/register.js';
+import './routes/branches.js';
 
 // Helper function to add sample data if database is empty
 async function initializeSampleData() {

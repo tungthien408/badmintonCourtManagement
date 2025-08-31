@@ -13,7 +13,7 @@ app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
   }
 });
 
-app.get(`/api/courts/:id`, async (req, res) => {
+app.get(`/api/courts/:id`, verifyRole('owner', 'staff'), async (req, res) => {
   try {
     const id = req.params.id;
     const court = await Court.findById(id);
