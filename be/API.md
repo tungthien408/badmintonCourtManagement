@@ -188,22 +188,16 @@
 ```
 **Response: 201 Created**
 
-#### 1.3. Lấy chi tiết chi nhánh 
+#### 1.3. Lấy chi tiết chi nhánh ✅
 
 **Endpoint:** `GET /api/branch`  
-**Response:** Chi tiết đầy đủ của chi nhánh
+**Response: 200 OK** Chi tiết đầy đủ của chi nhánh
 
-#### 1.4. Cập nhật thông tin chi nhánh
+#### 1.4. Cập nhật thông tin chi nhánh ✅
 
 **Endpoint:** `PUT /api/branch/{id}`  
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
-
-#### 1.5. Xóa chi nhánh
-
-**Endpoint:** `DELETE /api/branch/{id}` 
-**Response:** Thông báo thành công
-
 
 ### 2. Quản lý sân
 

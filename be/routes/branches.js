@@ -44,7 +44,7 @@ app.post(`/api/branches`, verifyRole('owner'), async (req, res) => {
     }
 });
 
-app.put(`/api/branches/:id`, verifyRole('owner'), async (req, res) => {
+app.get(`/api/branches/:id`, verifyRole('owner'), async (req, res) => {
     try {
         const id = req.params.id
 
@@ -54,6 +54,33 @@ app.put(`/api/branches/:id`, verifyRole('owner'), async (req, res) => {
         } else {
             res.json({branch})
         }
+    } catch (error) {
+        res.status(500).json({message: "Server error."});
+        console.log(error);
+    }
+});
+
+app.put(`/api/branches/:id`, verifyRole('owner'), async (req, res) => {
+    try {
+        const id = req.params.id
+        const {name, phone, address, isActive} = req.body;
+
+        // Build update object dynamically
+        const updateFields = {};
+        if (name !== undefined) updateFields.name = name;
+        if (phone !== undefined) updateFields.phone = phone;
+        if (address !== undefined) updateFields.address = address;
+        if (isActive !== undefined) updateFields.isActive = isActive;
+
+        const branch = await Branch.findOneAndUpdate(
+            { _id: id, isActive: true },
+            updateFields,
+            { new: true }
+        );
+        if (!branch) {
+            res.status(404).json({message: "Branch not exists."});
+        } 
+        res.json({message: "Branch updated successfully", branch: branch})
     } catch (error) {
         res.status(500).json({message: "Server error."});
         console.log(error);
