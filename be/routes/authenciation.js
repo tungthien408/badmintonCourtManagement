@@ -30,14 +30,6 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
-// app.post('/api/auth/logout', async (req, res) => {
-//     try {
-//         sessionStorage.removeItem('jwtToken');
-//     } catch (error) {
-//         return res.status(500).json({message: 'Logout error', error: error});
-//     }
-// });
-
 app.get('/api/auth/me', async (req, res) => {
     // TODO
 });
