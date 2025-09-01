@@ -34,7 +34,7 @@ app.post(`/api/courts`, verifyRole('owner'), async (req, res) => {
         const idbr = req.br.id 
         const br = await Branch.findOne({_id: idbr})
         const idty = req.br.id 
-        const ty = await Branch.findOne({_id: idty})
+        const ty = await CourtType.findOne({_id: idty})
        
 
         const {name} = req.body;

@@ -201,13 +201,13 @@
 
 ### 2. Quản lý sân
 
-#### 2.1. Lấy danh sách sân V
+#### 2.1. Lấy danh sách sân 
 
 **Endpoint:** `GET /api/courts` 
 **Parameters:** `page`, `limit`, `search`, [status],[sort]
 **Response:** Danh sách chi nhánh với thông tin chi tiết
 
-#### 2.2. Thêm sân mới V
+#### 2.2. Thêm sân mới  
 
 **Endpoint:** `POST /api/courts` 
 **Request Body (JSON):**
@@ -221,7 +221,7 @@
 ```
 **Response: 201 Created**
 
-#### 2.3. Lấy chi tiết sân V
+#### 2.3. Lấy chi tiết sân 
 
 **Endpoint:** `GET /api/courts/{id}`  
 **Response:** Chi tiết đầy đủ của sân
