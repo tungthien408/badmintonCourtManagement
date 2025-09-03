@@ -1,15 +1,13 @@
 import { verifyRole } from "../middleware/middleware.js";
 import { app } from "../config/config.js";
+import { getUserBranches } from "../utils/branchUtils.js";
 import Account from "../models/Account.js";
 import Human from "../models/Human.js";
 import Branch from "../models/Branch.js";
 
 app.get(`/api/branches`, verifyRole('owner'), async (req, res) => {
     try {
-        const id = req.user.id // account
-        const acc = await Account.findOne({_id: id})
-        const human = await Human.findOne({_id: acc.humanId})
-        const branches = await Branch.find({ ownerId: human._id, isActive: true });
+        const branches = await getUserBranches(req.user.id);
         if (branches.length == 0) {
             res.status(200).json({message: "No branch created."});
         } else {

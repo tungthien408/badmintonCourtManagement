@@ -18,7 +18,7 @@ function CourtCard({ court, selectedCourt, onClick }) {
             {isSelected && (
                 <>
                     <p>Status: {court.isAvailable ? '✅ Available' : '❌ Booked'}</p>
-                    <p>Branch: {court.branchId}</p>
+                    <p>Branch: {court.branchId.name}</p>
                 </>
             )}
         </div>

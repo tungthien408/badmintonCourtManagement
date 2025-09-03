@@ -15,7 +15,8 @@ const HumanSchema = new mongoose.Schema({
         type: String,
         required: false,
         match: /.+\@.+\..+/,
-        unique: true
+        unique: true,
+        sparse: true
     }
 });
 
