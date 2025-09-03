@@ -1,13 +1,18 @@
 
 import { verifyRole } from '../middleware/middleware.js';
 import { app } from '../config/config.js';
+import { getBranchIds } from '../utils/branchUtils.js';
 import Court from '../models/Court.js';
 import CourtType from '../models/CourtType.js';
 import Branch from '../models/Branch.js';
 
 app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
   try {
-    const courts = await Court.find(); // Fetch all courts from database
+    const branchIds = await getBranchIds(req.user.id);
+    if (branchIds.length === 0) {
+      return res.status(200).json({ message: "No branches found, so no courts available." });
+    }
+    const courts = await Court.find({ branchId: { $in: branchIds } }); // Fetch all courts from database
     res.json({ courts });
   } catch (error) {
     console.error('Error fetching courts:', error);
@@ -17,8 +22,13 @@ app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
 
 app.get(`/api/courts/:id`, verifyRole('owner', 'staff'), async (req, res) => {
   try {
+    const branchIds = await getBranchIds(req.user.id);
+    if (branchIds.length === 0) {
+      return res.status(200).json({ message: "No branches found, so no courts available." });
+    }
+
     const id = req.params.id;
-    const court = await Court.findById(id);
+    const court = await Court.findOne({ _id: id, branchId: { $in: branchIds } }).populate('branchId');
     if (!court) {
       return res.status(404).json({ message: 'Court not found' });
     }
@@ -30,67 +40,54 @@ app.get(`/api/courts/:id`, verifyRole('owner', 'staff'), async (req, res) => {
 
 // Create
 app.post(`/api/courts`, verifyRole('owner'), async (req, res) => {
-    try {
-        const idbr = req.br.id 
-        const br = await Branch.findOne({_id: idbr})
-        const idty = req.br.id 
-        const ty = await Branch.findOne({_id: idty})
-       
+  try {
+    const { branchId, courtTypeId, name } = req.body;
+    const branch = await Branch.findOne({ _id: branchId });
+    const courtType = await CourtType.findOne({ _id: courtTypeId });
 
-        const {name} = req.body;
-        if (!name) {
-            return res.status(400).json({message: "Missing required fields."});
-        }
-        const branch = await Branch.create({
-            BranchID : br._id,
-            TypeID : ty._id,
-            name
-        });
-        res.status(201).json({message: "Create Court sucessfully", branch});
-    } catch (error) {
-        res.status(500).json({message: "Server error."});
-        console.log(error);
+    if (!branch || (courtTypeId != null && !courtType)) {
+      return res.status(400).json({message: "Cannot find branch"});
+    } 
+
+    if (!name) {
+      return res.status(400).json({ message: "Missing required fields." });
     }
+    const court = await Court.create({ branchId, courtTypeId: courtTypeId || null, name });
+    res.status(201).json({ message: "Create Court sucessfully", court });
+  } catch (error) {
+    res.status(500).json({ message: "Server error." });
+    console.log(error);
+  }
 });
 
 // Update
 app.put('/api/courts/:id', verifyRole('owner'), async (req, res) => {
-    try {
-        const id = req.params.id;
-        const { TypeID, name, isActive } = req.body;
-
-        // Build update object dynamically
-        const updateFields = {};
-        if (TypeID !== undefined) updateFields.TypeID = TypeID;
-        if (name !== undefined) updateFields.name = name;
-        if (isActive !== undefined) updateFields.isActive = isActive;
-
-        const court = await Court.findOneAndUpdate(
-            { _id: id, isActive: true },
-            updateFields,
-            { new: true }
-        );
-        if (!court) {
-            return res.status(404).json({ message: "Court not found." });
-        }
-        res.json({ message: "Court updated successfully", court: court });
-    } catch (error) {
-        res.status(500).json({ message: "Server error." });
-        console.log(error);
+  try {
+    const branchIds = await getBranchIds(req.user.id);
+    if (branchIds.length === 0) {
+      return res.status(200).json({ message: "No branches found, so no courts available." });
     }
-});
 
-// Delete
-app.delete(`/api/courts/:id`, verifyRole('owner'), async (req, res) => {
-    try {
-        const id = req.params.id;
-        const court = await Court.findByIdAndDelete(id);
-        if (!court) {
-            return res.status(404).json({ message: 'Court not found' });
-        }
-        res.json({ message: 'Court deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting court:', error);
-        res.status(500).json({ error: 'Failed to delete court' });
+    const id = req.params.id;
+    const { TypeID, name, isActive } = req.body;
+
+    // Build update object dynamically
+    const updateFields = {};
+    if (TypeID !== undefined) updateFields.TypeID = TypeID;
+    if (name !== undefined) updateFields.name = name;
+    if (isActive !== undefined) updateFields.isActive = isActive;
+
+    const court = await Court.findOneAndUpdate(
+      { _id: id, isActive: true, branchId: { $in: branchIds } },
+      updateFields,
+      { new: true }
+    );
+    if (!court) {
+      return res.status(404).json({ message: "Court not found." });
     }
+    res.json({ message: "Court updated successfully", court: court });
+  } catch (error) {
+    res.status(500).json({ message: "Server error." });
+    console.log(error);
+  }
 });

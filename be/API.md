@@ -151,9 +151,15 @@
 **Endpoint:** `GET /api/payments/me`  
 **Response:** Lấy tất cả thanh toán của tôi 
 
+### 4. Xem thông tin chi nhánh
+
+### 5. Xem thông tin sân (dựa vào chi nhánh đã chọn)
+
+### 6. Xem bảng giá (dựa vào chi nhánh đã chọn)
+
 ## II. API cho phần Admin
 
-### 1. Quản lý chi nhánh
+### 1. Quản lý chi nhánh ✅
 
 #### 1.1. Lấy danh sách chi nhánh  ✅
 
@@ -199,15 +205,15 @@
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
 
-### 2. Quản lý sân
+### 2. Quản lý sân ✅
 
-#### 2.1. Lấy danh sách sân V
+#### 2.1. Lấy danh sách sân ✅
 
 **Endpoint:** `GET /api/courts` 
 **Parameters:** `page`, `limit`, `search`, [status],[sort]
 **Response:** Danh sách chi nhánh với thông tin chi tiết
 
-#### 2.2. Thêm sân mới V
+#### 2.2. Thêm sân mới  ✅
 
 **Endpoint:** `POST /api/courts` 
 **Request Body (JSON):**
@@ -221,59 +227,54 @@
 ```
 **Response: 201 Created**
 
-#### 2.3. Lấy chi tiết sân V
+#### 2.3. Lấy chi tiết sân ✅
 
 **Endpoint:** `GET /api/courts/{id}`  
 **Response:** Chi tiết đầy đủ của sân
 
-#### 2.4. Cập nhật thông tin sân 
+#### 2.4. Cập nhật thông tin sân ✅
 
 **Endpoint:** `PUT /api/courts/{id}`  
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
 
-#### 2.5. Xóa sân
+### 3. Quản lý bảng giá ✅
 
-**Endpoint:** `DELETE /api/courts/{id}` 
-**Response:** Thông báo thành công
-
-### 3. Quản lý bảng giá
-
-#### 3.1. Lấy danh bảng giá 
+#### 3.1. Lấy danh sách bảng giá ✅
 
 **Endpoint:** `GET /api/priceList` 
 **Parameters:** `page`, `limit`, `search`,[sort]
 **Response:** Danh sách bảng với thông tin chi tiết
 
-#### 3.2. Thêm bảng giá mới
+#### 3.2. Thêm bảng giá mới ✅
 
 **Endpoint:** `POST /api/priceList` 
 **Request Body (JSON):**
+
 ```
 {
     "branchId": "124",
     "courtTypeId": [optional],
     "price": 50000,
     "date": 1 // => Hiển thị thứ trong tuần
+    startTime: 5,
+    endTime: 16,
+    status: true
 }
-``` 
+```
+ 
 **Response:** Thông tin giá đã tạo
 
-#### 3.3. Lấy chi tiết bảng giá
+#### 3.3. Lấy chi tiết bảng giá ✅
 
 **Endpoint:** `GET /api/priceList/{id}`  
 **Response:** Chi tiết đầy đủ của bảng giá
 
-#### 3.4. Cập nhật thông tin bảng giá
+#### 3.4. Cập nhật thông tin bảng giá ✅
 
 **Endpoint:** `GET /api/priceList/{id}`  
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
-
-#### 3.5. Xóa bảng giá 
-
-**Endpoint:** `DELETE /api/priceList/{id}`  
-**Response:** Thông báo thành công
 
 ### 4. Quản lý người dùng
 

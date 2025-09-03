@@ -7,8 +7,10 @@ import './routes/human.js';
 import './routes/authenciation.js';
 import './routes/register.js';
 import './routes/branches.js';
+import './routes/pricelist.js'
 
 // Helper function to add sample data if database is empty
+/*
 async function initializeSampleData() {
   try {
     const courtCount = await Court.countDocuments();
@@ -25,12 +27,13 @@ async function initializeSampleData() {
     console.error('Error initializing sample data:', error);
   }
 }
+  */
 
 // Start server
 app.listen(PORT, async () => {
   console.log(`🏸 Badminton Court Management Server running on port ${PORT}`);
   console.log(`📡 API available at http://localhost:${PORT}/api`);
-  
+
   // Add sample data if database is empty
-  await initializeSampleData();
+  // await initializeSampleData();
 });

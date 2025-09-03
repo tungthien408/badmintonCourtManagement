@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// import mongoose from 'mongoose';
 
 const PriceListSchema = new mongoose.Schema({
     branchId: {
@@ -18,6 +19,23 @@ const PriceListSchema = new mongoose.Schema({
     date: {
         type: Number,
         enum: [1, 2, 3, 4, 5, 6, 7],
+        required: true
+    },
+    startTime: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 23,
+    },
+    endTime: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 24,
+    },
+    status: {
+        type: Boolean,
+        default: true,
         required: true
     }
 });

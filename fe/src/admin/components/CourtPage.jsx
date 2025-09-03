@@ -34,7 +34,11 @@ function CourtPage() {
 
   useEffect(() => {
     if (!selectedCourt) return;
-    fetch(`http://localhost:5000/api/courts/${selectedCourt._id}`)
+    fetch(`http://localhost:5000/api/courts/${selectedCourt._id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then(response => response.json())
       .then(data => {
         const updateCourts = courts.map(court => {
