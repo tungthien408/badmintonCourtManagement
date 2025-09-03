@@ -21,22 +21,24 @@ app.get('/api/priceList', verifyRole('owner', 'staff'), async (req, res) => {
 app.post(`/api/priceList`, verifyRole('owner'), async (req, res) => {
     try {
         const idbr = req.br.id 
-        const br = await Branch.findOne({_id: idbr})
+        const branchId = await Branch.findOne({_id: idbr})
         const idty = req.br.id 
-        const ty = await CourtType.findOne({_id: idty})
+        const courtTypeId = await CourtType.findOne({_id: idty})
        
 
-        const {price,date} = req.body;
+      const { price, startTime, endTime } = req.body;
         if (!price || !date) {
             return res.status(400).json({message: "Missing required fields."});
         }
         // ERROR: Tạo bảng giá mới, KHÔNG PHẢI TẠO NHÁNH MỚI
         // ERROR: THIẾU THUỘC TÍNH
         const branch = await Branch.create({
-            BranchID : br._id,
-            TypeID : ty._id,
+            BranchID : branchId._id,
+            TypeID : courtTypeId._id,
             price,
-            date
+            date,
+            startTime,
+            endTime
         });
         res.status(201).json({message: "Create pricelist sucessfully", branch});
     } catch (error) {
@@ -65,13 +67,15 @@ app.put('/api/priceList/:id', verifyRole('owner'), async (req, res) => {
     try {
       // ERROR: CHƯA KIỂM TRA BẢNG GIÁ CÓ THUỘC CHI NHÁNH DO NGƯỜI DÙNG SỞ HỮU HAY KHÔNG
         const id = req.params.id;
-        const { TypeID, price,date, isActive } = req.body;
+        const { TypeID, price,date, isActive, endTime,startTime} = req.body;
 
         // Build update object dynamically
         const updateFields = {};
         if (TypeID !== undefined) updateFields.TypeID = TypeID;
         if (price !== undefined) updateFields.price = price;
         if (date !== undefined) updateFields.date = date;
+        if (startTime !== undefined) updateFields.startTime = startTime;
+        if (endTime !== undefined) updateFields.endTime = endTime;
         if (isActive !== undefined) updateFields.isActive = isActive;
 
         const pricelist = await PriceList.findOneAndUpdate(

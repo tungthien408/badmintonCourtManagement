@@ -36,6 +36,14 @@ const PriceListSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
         required: true
+    },
+    startTime: {
+        type: Date,
+        required: true
+    },
+    endTime: {
+        type: Date,
+        required: true
     }
 });
 

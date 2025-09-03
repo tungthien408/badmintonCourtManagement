@@ -53,7 +53,7 @@ app.post(`/api/courts`, verifyRole('owner'), async (req, res) => {
       return res.status(400).json({ message: "Missing required fields." });
     }
     const court = await Court.create({ branchId, courtTypeId: courtTypeId || null, name });
-    res.status(201).json({ message: "Create Court sucessfully", branch });
+    res.status(201).json({ message: "Create Court sucessfully", court });
   } catch (error) {
     res.status(500).json({ message: "Server error." });
     console.log(error);
