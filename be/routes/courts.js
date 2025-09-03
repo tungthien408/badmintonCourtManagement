@@ -14,7 +14,7 @@ app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
     }
     const branchIds = branches.map(branch => branch._id);
 
-    const courts = await Court.find({ branchId: { $in: branchIds } }).populate('branchId'); // Fetch all courts from database
+    const courts = await Court.find({ branchId: { $in: branchIds } }); // Fetch all courts from database
     res.json({ courts });
   } catch (error) {
     console.error('Error fetching courts:', error);

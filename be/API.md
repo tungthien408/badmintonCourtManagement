@@ -151,9 +151,13 @@
 **Endpoint:** `GET /api/payments/me`  
 **Response:** Lấy tất cả thanh toán của tôi 
 
+### 4. Xem thông tin chi nhánh
+
+### 5. Xem thông tin sân
+
 ## II. API cho phần Admin
 
-### 1. Quản lý chi nhánh
+### 1. Quản lý chi nhánh ✅
 
 #### 1.1. Lấy danh sách chi nhánh  ✅
 
@@ -199,15 +203,15 @@
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
 
-### 2. Quản lý sân
+### 2. Quản lý sân ✅
 
-#### 2.1. Lấy danh sách sân 
+#### 2.1. Lấy danh sách sân ✅
 
 **Endpoint:** `GET /api/courts` 
 **Parameters:** `page`, `limit`, `search`, [status],[sort]
 **Response:** Danh sách chi nhánh với thông tin chi tiết
 
-#### 2.2. Thêm sân mới  
+#### 2.2. Thêm sân mới  ✅
 
 **Endpoint:** `POST /api/courts` 
 **Request Body (JSON):**
@@ -221,21 +225,16 @@
 ```
 **Response: 201 Created**
 
-#### 2.3. Lấy chi tiết sân 
+#### 2.3. Lấy chi tiết sân ✅
 
 **Endpoint:** `GET /api/courts/{id}`  
 **Response:** Chi tiết đầy đủ của sân
 
-#### 2.4. Cập nhật thông tin sân 
+#### 2.4. Cập nhật thông tin sân ✅
 
 **Endpoint:** `PUT /api/courts/{id}`  
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
-
-#### 2.5. Xóa sân
-
-**Endpoint:** `DELETE /api/courts/{id}` 
-**Response:** Thông báo thành công
 
 ### 3. Quản lý bảng giá
 
