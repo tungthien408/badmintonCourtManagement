@@ -153,7 +153,9 @@
 
 ### 4. Xem thông tin chi nhánh
 
-### 5. Xem thông tin sân
+### 5. Xem thông tin sân (dựa vào chi nhánh đã chọn)
+
+### 6. Xem bảng giá (dựa vào chi nhánh đã chọn)
 
 ## II. API cho phần Admin
 

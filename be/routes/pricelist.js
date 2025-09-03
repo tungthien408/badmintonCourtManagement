@@ -8,6 +8,7 @@ import PriceList from '../models/PriceList.js';
 // Lấy danh sách bảng giá 
 app.get('/api/priceList', verifyRole('owner', 'staff'), async (req, res) => {
   try {
+    // ERROR: Lấy bảng giá cho tất cả các chi nhánh mà chủ account đang sở hữu, KHÔNG PHẢI TẤT CẢ CHI NHÁNH TRONG HỆ THỐNG
     const pricelist = await PriceList.find(); 
     res.json({ pricelist });
   } catch (error) {
@@ -29,6 +30,8 @@ app.post(`/api/priceList`, verifyRole('owner'), async (req, res) => {
         if (!price || !date) {
             return res.status(400).json({message: "Missing required fields."});
         }
+        // ERROR: Tạo bảng giá mới, KHÔNG PHẢI TẠO NHÁNH MỚI
+        // ERROR: THIẾU THUỘC TÍNH
         const branch = await Branch.create({
             BranchID : br._id,
             TypeID : ty._id,
@@ -42,9 +45,10 @@ app.post(`/api/priceList`, verifyRole('owner'), async (req, res) => {
     }
 });
 
-// Lấy chi tiết bảng giá
+// Lấy chi tiết bảng giá của một chi nhánh 
 app.get(`/api/priceList/:id`, verifyRole('owner', 'staff'), async (req, res) => {
   try {
+    // ERROR: CHƯA KIỂM TRA BẢNG GIÁ CÓ THUỘC CHI NHÁNH DO NGƯỜI DÙNG SỞ HỮU HAY KHÔNG
     const id = req.params.id;
     const pricelist = await PriceList.findById(id);
     if (!pricelist) {
@@ -56,9 +60,10 @@ app.get(`/api/priceList/:id`, verifyRole('owner', 'staff'), async (req, res) => 
   }
 });
 
-//Cập nhật thông tin bảng giá
+// Cập nhật thông tin bảng giá
 app.put('/api/priceList/:id', verifyRole('owner'), async (req, res) => {
     try {
+      // ERROR: CHƯA KIỂM TRA BẢNG GIÁ CÓ THUỘC CHI NHÁNH DO NGƯỜI DÙNG SỞ HỮU HAY KHÔNG
         const id = req.params.id;
         const { TypeID, price,date, isActive } = req.body;
 
@@ -85,16 +90,16 @@ app.put('/api/priceList/:id', verifyRole('owner'), async (req, res) => {
 });
 
 // Xóa bảng giá
-app.delete(`/api/priceList/:id`, verifyRole('owner'), async (req, res) => {
-    try {
-        const id = req.params.id;
-        const pricelist = await PriceList.findByIdAndDelete(id);
-        if (!pricelist) {
-            return res.status(404).json({ message: 'priceList not found' });
-        }
-        res.json({ message: 'priceList deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting priceList:', error);
-        res.status(500).json({ error: 'Failed to delete priceList' });
-    }
-});
+// app.delete(`/api/priceList/:id`, verifyRole('owner'), async (req, res) => {
+//     try {
+//         const id = req.params.id;
+//         const pricelist = await PriceList.findByIdAndDelete(id);
+//         if (!pricelist) {
+//             return res.status(404).json({ message: 'priceList not found' });
+//         }
+//         res.json({ message: 'priceList deleted successfully' });
+//     } catch (error) {
+//         console.error('Error deleting priceList:', error);
+//         res.status(500).json({ error: 'Failed to delete priceList' });
+//     }
+// });
