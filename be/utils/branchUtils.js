@@ -17,3 +17,8 @@ export async function getUserBranches(userId) {
         throw new Error('Failed to fetch branches: ' + error.message);
     }
 }
+
+export async function getBranchIds(userId) {
+    const branches = await getUserBranches(userId);
+    return branches.map(branch => branch._id);
+}

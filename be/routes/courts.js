@@ -1,19 +1,17 @@
 
 import { verifyRole } from '../middleware/middleware.js';
 import { app } from '../config/config.js';
-import { getUserBranches } from '../utils/branchUtils.js';
+import { getBranchIds } from '../utils/branchUtils.js';
 import Court from '../models/Court.js';
 import CourtType from '../models/CourtType.js';
 import Branch from '../models/Branch.js';
 
 app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
   try {
-    const branches = await getUserBranches(req.user.id);
-    if (branches.length === 0) {
+    const branchIds = await getBranchIds(req.user.id);
+    if (branchIds.length === 0) {
       return res.status(200).json({ message: "No branches found, so no courts available." });
     }
-    const branchIds = branches.map(branch => branch._id);
-
     const courts = await Court.find({ branchId: { $in: branchIds } }); // Fetch all courts from database
     res.json({ courts });
   } catch (error) {
@@ -24,11 +22,10 @@ app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
 
 app.get(`/api/courts/:id`, verifyRole('owner', 'staff'), async (req, res) => {
   try {
-    const branches = await getUserBranches(req.user.id);
-    if (branches.length === 0) {
+    const branchIds = await getBranchIds(req.user.id);
+    if (branchIds.length === 0) {
       return res.status(200).json({ message: "No branches found, so no courts available." });
     }
-    const branchIds = branches.map(branch => branch._id);
 
     const id = req.params.id;
     const court = await Court.findOne({ _id: id, branchId: { $in: branchIds } }).populate('branchId');
@@ -48,6 +45,9 @@ app.post(`/api/courts`, verifyRole('owner'), async (req, res) => {
     const branch = await Branch.findOne({ _id: branchId });
     const courtType = await CourtType.findOne({ _id: courtTypeId });
 
+    if (!branch || (courtTypeId != null && !courtType)) {
+      return res.status(400).json({message: "Cannot find branch"});
+    } 
 
     if (!name) {
       return res.status(400).json({ message: "Missing required fields." });
@@ -63,11 +63,10 @@ app.post(`/api/courts`, verifyRole('owner'), async (req, res) => {
 // Update
 app.put('/api/courts/:id', verifyRole('owner'), async (req, res) => {
   try {
-    const branches = await getUserBranches(req.user.id);
-    if (branches.length === 0) {
+    const branchIds = await getBranchIds(req.user.id);
+    if (branchIds.length === 0) {
       return res.status(200).json({ message: "No branches found, so no courts available." });
     }
-    const branchIds = branches.map(branch => branch._id);
 
     const id = req.params.id;
     const { TypeID, name, isActive } = req.body;

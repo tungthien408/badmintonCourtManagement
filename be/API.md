@@ -238,43 +238,43 @@
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
 
-### 3. Quản lý bảng giá
+### 3. Quản lý bảng giá ✅
 
-#### 3.1. Lấy danh bảng giá 
+#### 3.1. Lấy danh sách bảng giá ✅
 
 **Endpoint:** `GET /api/priceList` 
 **Parameters:** `page`, `limit`, `search`,[sort]
 **Response:** Danh sách bảng với thông tin chi tiết
 
-#### 3.2. Thêm bảng giá mới
+#### 3.2. Thêm bảng giá mới ✅
 
 **Endpoint:** `POST /api/priceList` 
 **Request Body (JSON):**
+
 ```
 {
     "branchId": "124",
     "courtTypeId": [optional],
     "price": 50000,
     "date": 1 // => Hiển thị thứ trong tuần
+    startTime: 5,
+    endTime: 16,
+    status: true
 }
-``` 
+```
+ 
 **Response:** Thông tin giá đã tạo
 
-#### 3.3. Lấy chi tiết bảng giá
+#### 3.3. Lấy chi tiết bảng giá ✅
 
 **Endpoint:** `GET /api/priceList/{id}`  
 **Response:** Chi tiết đầy đủ của bảng giá
 
-#### 3.4. Cập nhật thông tin bảng giá
+#### 3.4. Cập nhật thông tin bảng giá ✅
 
 **Endpoint:** `GET /api/priceList/{id}`  
 **Parameters:** Thông tin cần cập nhật  
 **Response:** Thông tin sản phẩm đã cập nhật
-
-#### 3.5. Xóa bảng giá 
-
-**Endpoint:** `DELETE /api/priceList/{id}`  
-**Response:** Thông báo thành công
 
 ### 4. Quản lý người dùng
 
