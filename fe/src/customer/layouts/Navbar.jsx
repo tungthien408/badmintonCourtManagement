@@ -1,6 +1,6 @@
 
 import Menu from '../../shared/components/Menu';
-import LoginBtn from '../../customer/components/LoginBtn';
+import LoginBtn from '../components/LoginBtn';
 
 function Navbar() {
     const logined = sessionStorage.getItem('jwtToken') ? true : false;

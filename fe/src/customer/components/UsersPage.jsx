@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../../customer/components/Navbar';
+import Navbar from '../layouts/Navbar';
 
 export default function UsersPage() {
   const [user, setUser] = useState(null);
@@ -20,51 +20,6 @@ export default function UsersPage() {
           console.error('Error fetching user data:', error)
         })
   }, [])
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       // if (!token || token.split('.').length !== 3) {
-  //       //   setError('Token không hợp lệ hoặc không tồn tại. Vui lòng đăng nhập lại.');
-  //       //   navigate('/login');
-  //       //   return;
-  //       // }
-
-  //       const response = await fetch('http://localhost:5000/api/users/me', {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //       // console.log('Response status:', response.status);
-  //       // const responseText = await response.text();
-  //       // console.log('Response text:', responseText);
-
-  //       if (!response.ok) {
-  //         if (response.status === 401) {
-  //           setError('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.');
-  //           sessionStorage.removeItem('jwtToken');
-  //           navigate('/login');
-  //           return;
-  //         }
-  //         if (response.status === 403) {
-  //           setError('Truy cập bị từ chối: Vai trò không đủ quyền.');
-  //           return;
-  //         }
-  //         throw new Error(`Lỗi ${response.status}: ${response.text()}`);
-  //       }
-
-  //       const data = JSON.parse(response.text());
-  //       console.log(data);
-  //       setUser(data);
-  //     } catch (error) {
-  //       setError(error.message || 'Đã xảy ra lỗi khi lấy thông tin người dùng.');
-  //       console.error('Lỗi:', error);
-  //     }
-  //   };
-
-  //   fetchUserData();
-  // }, [navigate]);
 
   return (
     <>

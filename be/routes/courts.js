@@ -5,6 +5,7 @@ import { getBranchIds } from '../utils/branchUtils.js';
 import Court from '../models/Court.js';
 import CourtType from '../models/CourtType.js';
 import Branch from '../models/Branch.js';
+import mongoose from 'mongoose';
 
 app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
   try {
@@ -68,17 +69,17 @@ app.put('/api/courts/:id', verifyRole('owner'), async (req, res) => {
       return res.status(200).json({ message: "No branches found, so no courts available." });
     }
 
-    const id = req.params.id;
-    const { TypeID, name, isActive } = req.body;
+    const id = new mongoose.Types.ObjectId(req.params.id);
+    const { courtTypeId, name, isAvailable } = req.body;
 
     // Build update object dynamically
     const updateFields = {};
-    if (TypeID !== undefined) updateFields.TypeID = TypeID;
+    if (courtTypeId !== undefined) updateFields.courtTypeId = courtTypeId;
     if (name !== undefined) updateFields.name = name;
-    if (isActive !== undefined) updateFields.isActive = isActive;
+    if (isAvailable !== undefined) updateFields.isAvailable = isAvailable;
 
     const court = await Court.findOneAndUpdate(
-      { _id: id, isActive: true, branchId: { $in: branchIds } },
+      { _id: id, branchId: { $in: branchIds } },
       updateFields,
       { new: true }
     );
@@ -87,7 +88,7 @@ app.put('/api/courts/:id', verifyRole('owner'), async (req, res) => {
     }
     res.json({ message: "Court updated successfully", court: court });
   } catch (error) {
-    res.status(500).json({ message: "Server error." });
+    res.status(500).json({ message: "Server error.", error: error.message });
     console.log(error);
   }
 });

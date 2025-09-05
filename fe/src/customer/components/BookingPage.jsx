@@ -1,5 +1,5 @@
 // import '../../App.css'
-import Navbar from '../../customer/components/Navbar';
+import Navbar from '../layouts/Navbar';
 
 function BookingPage() {
     return (
