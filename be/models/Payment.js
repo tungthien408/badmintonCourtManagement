@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 
+import mongoose from "mongoose";
 const PaymentSchema = new mongoose.Schema({
     bookingId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -35,4 +35,4 @@ const PaymentSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Payment', PaymentSchema);
+export default mongoose.model('Payment', PaymentSchema);

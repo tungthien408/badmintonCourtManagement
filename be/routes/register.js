@@ -1,9 +1,15 @@
-const { app } = require('../config/config');
-const Human = require('../models/Human');
-const Account = require('../models/Account');
-const crypto = require('crypto');
+// const Human = require('../models/Human');
+// const Account = require('../models/Account');
+// const crypto = require('crypto');
+import crypto from 'crypto';
+import Account from '../models/Account.js';
+import Human from '../models/Human.js';
+import { Router } from 'express';
 
-app.post('/api/users', async (req, res) => {
+
+const router = Router()
+
+router.post('/', async (req, res) => {
     try {
         const { name, phone, email, username, password, role } = req.body;
         if (!name || !phone || !username || !password) {
@@ -46,3 +52,6 @@ app.post('/api/users', async (req, res) => {
         console.log(error)
     }
 })
+
+
+export default router;

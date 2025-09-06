@@ -1,13 +1,16 @@
 
 import { verifyRole } from '../middleware/middleware.js';
-import { app } from '../config/config.js';
 import PriceList from '../models/PriceList.js';
 import { getPriceList, isPriceListValid } from '../utils/priceListUtils.js';
 import { getBranchIds } from '../utils/branchUtils.js';
 import mongoose from 'mongoose';
+import { Router } from 'express';
+
+
+const router = Router()
 
 // Lấy danh sách bảng giá 
-app.get('/api/priceList', verifyRole('owner', 'staff'), async (req, res) => {
+router.get('/', verifyRole('owner', 'staff'), async (req, res) => {
   try {
     const pricelist = await getPriceList(req.user.id);
     res.json({ pricelist });
@@ -18,7 +21,7 @@ app.get('/api/priceList', verifyRole('owner', 'staff'), async (req, res) => {
 });
 
 // Thêm bảng giá mới
-app.post(`/api/priceList`, verifyRole('owner'), async (req, res) => {
+router.post(`/`, verifyRole('owner'), async (req, res) => {
   try {
     const branchIds = await getBranchIds(req.user.id);
     if (branchIds.length == 0) {
@@ -42,7 +45,7 @@ app.post(`/api/priceList`, verifyRole('owner'), async (req, res) => {
 });
 
 // Lấy chi tiết bảng giá của một chi nhánh 
-app.get(`/api/priceList/:id`, verifyRole('owner', 'staff'), async (req, res) => {
+router.get(`/:id`, verifyRole('owner', 'staff'), async (req, res) => {
   try {
     const id = req.params.id; // pricelistid
     if (!isPriceListValid(req.user.id, id)) {
@@ -59,7 +62,7 @@ app.get(`/api/priceList/:id`, verifyRole('owner', 'staff'), async (req, res) => 
 });
 
 // Cập nhật thông tin bảng giá
-app.put('/api/priceList/:id', verifyRole('owner'), async (req, res) => {
+router.put('/:id', verifyRole('owner'), async (req, res) => {
   try {
     // ERROR: CHƯA KIỂM TRA BẢNG GIÁ CÓ THUỘC CHI NHÁNH DO NGƯỜI DÙNG SỞ HỮU HAY KHÔNG
     const id = req.params.id;
@@ -92,3 +95,6 @@ app.put('/api/priceList/:id', verifyRole('owner'), async (req, res) => {
     console.log(error);
   }
 });
+
+
+export default router;

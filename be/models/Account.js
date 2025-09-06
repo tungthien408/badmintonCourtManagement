@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+import mongoose from "mongoose";
 const AccountSchema = new mongoose.Schema({
     humanId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -26,4 +25,4 @@ const AccountSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Account', AccountSchema);
+export default mongoose.model('Account', AccountSchema);

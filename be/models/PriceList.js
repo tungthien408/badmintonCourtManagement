@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 const PriceListSchema = new mongoose.Schema({
     branchId: {
@@ -40,4 +39,4 @@ const PriceListSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('PriceList', PriceListSchema);
+export default mongoose.model('PriceList', PriceListSchema);

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 
+import mongoose from "mongoose";
 const CourtSchema = new mongoose.Schema({
   branchId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -21,4 +21,4 @@ const CourtSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Court', CourtSchema);
+export default mongoose.model('Court', CourtSchema);

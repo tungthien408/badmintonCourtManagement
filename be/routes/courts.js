@@ -1,13 +1,15 @@
 
 import { verifyRole } from '../middleware/middleware.js';
-import { app } from '../config/config.js';
 import { getBranchIds } from '../utils/branchUtils.js';
 import Court from '../models/Court.js';
 import CourtType from '../models/CourtType.js';
 import Branch from '../models/Branch.js';
 import mongoose from 'mongoose';
+import { Router } from 'express';
 
-app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
+const router = Router()
+
+router.get('/', verifyRole('owner', 'staff'), async (req, res) => {
   try {
     const branchIds = await getBranchIds(req.user.id);
     if (branchIds.length === 0) {
@@ -21,7 +23,7 @@ app.get('/api/courts', verifyRole('owner', 'staff'), async (req, res) => {
   }
 });
 
-app.get(`/api/courts/:id`, verifyRole('owner', 'staff'), async (req, res) => {
+router.get(`/:id`, verifyRole('owner', 'staff'), async (req, res) => {
   try {
     const branchIds = await getBranchIds(req.user.id);
     if (branchIds.length === 0) {
@@ -40,7 +42,7 @@ app.get(`/api/courts/:id`, verifyRole('owner', 'staff'), async (req, res) => {
 });
 
 // Create
-app.post(`/api/courts`, verifyRole('owner'), async (req, res) => {
+router.post(`/`, verifyRole('owner'), async (req, res) => {
   try {
     const { branchId, courtTypeId, name } = req.body;
     const branch = await Branch.findOne({ _id: branchId });
@@ -62,7 +64,7 @@ app.post(`/api/courts`, verifyRole('owner'), async (req, res) => {
 });
 
 // Update
-app.put('/api/courts/:id', verifyRole('owner'), async (req, res) => {
+router.put('/:id', verifyRole('owner'), async (req, res) => {
   try {
     const branchIds = await getBranchIds(req.user.id);
     if (branchIds.length === 0) {
@@ -92,3 +94,6 @@ app.put('/api/courts/:id', verifyRole('owner'), async (req, res) => {
     console.log(error);
   }
 });
+
+
+export default router;

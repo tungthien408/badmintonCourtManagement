@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+import mongoose from "mongoose";
 const BookingSchema = new mongoose.Schema({
     customerId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -35,4 +34,4 @@ const BookingSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Booking', BookingSchema);
+export default mongoose.model('Booking', BookingSchema);

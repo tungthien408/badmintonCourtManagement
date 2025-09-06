@@ -1,10 +1,12 @@
 import {verifyRole} from "../middleware/middleware.js";
-import { app } from "../config/config.js";
 import Human from "../models/Human.js";
 import Account from "../models/Account.js";
+import { Router } from "express";
+
+const router = Router()
 
 
-app.get('/api/human', verifyRole("staff", "owner", "customer"), async (req, res) => {
+router.get('/', verifyRole("staff", "owner", "customer"), async (req, res) => {
   try {
     const human = await Human.find(); // Fetch all human from database
     res.json({ human });
@@ -14,7 +16,7 @@ app.get('/api/human', verifyRole("staff", "owner", "customer"), async (req, res)
   }
 });
 
-// app.get(`/api/human/:id`, verifyRole("staff", "owner", "customer"), async (req, res) => {
+// router.get(`/api/human/:id`, verifyRole("staff", "owner", "customer"), async (req, res) => {
 //   try {
 //     const id = req.params.id;
 //     const Human = await Human.findById(id);
@@ -28,7 +30,7 @@ app.get('/api/human', verifyRole("staff", "owner", "customer"), async (req, res)
 // });
 
 // xem thông tin của mình
-app.get('/api/users/me', verifyRole("staff", "owner", "customer"), async (req, res) => {
+router.get('/me', verifyRole("staff", "owner", "customer"), async (req, res) => {
   try {
     const id = req.user.id;
     const acc = await Account.findById(id);
@@ -41,3 +43,6 @@ app.get('/api/users/me', verifyRole("staff", "owner", "customer"), async (req, r
     console.log(error.message);
   }
 });
+
+
+export default router;
