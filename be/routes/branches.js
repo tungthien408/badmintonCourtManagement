@@ -1,11 +1,15 @@
-import { app } from "../config/config.js";
+import { Router } from "express";
 import { verifyRole } from "../middleware/middleware.js";
 import Account from "../models/Account.js";
 import Branch from "../models/Branch.js";
 import Human from "../models/Human.js";
 import { getUserBranches } from "../utils/branchUtils.js";
 
-app.get(`/api/branches`, verifyRole('owner'), async (req, res) => {
+
+const router = Router();
+
+
+router.get(`/`, verifyRole('owner'), async (req, res) => {
     try {
         const branches = await getUserBranches(req.user.id);
         if (branches.length == 0) {
@@ -19,7 +23,7 @@ app.get(`/api/branches`, verifyRole('owner'), async (req, res) => {
     }
 });
 
-app.post(`/api/branches`, verifyRole('owner'), async (req, res) => {
+router.post(`/`, verifyRole('owner'), async (req, res) => {
     try {
         const id = req.user.id // account
         const acc = await Account.findOne({_id: id})
@@ -42,7 +46,7 @@ app.post(`/api/branches`, verifyRole('owner'), async (req, res) => {
     }
 });
 
-app.get(`/api/branches/:id`, verifyRole('owner'), async (req, res) => {
+router.get(`/:id`, verifyRole('owner'), async (req, res) => {
     try {
         const id = req.params.id
 
@@ -58,7 +62,7 @@ app.get(`/api/branches/:id`, verifyRole('owner'), async (req, res) => {
     }
 });
 
-app.put(`/api/branches/:id`, verifyRole('owner'), async (req, res) => {
+router.put(`/:id`, verifyRole('owner'), async (req, res) => {
     try {
         const id = req.params.id
         const {name, phone, address, isActive} = req.body;
@@ -84,3 +88,6 @@ app.put(`/api/branches/:id`, verifyRole('owner'), async (req, res) => {
         console.log(error);
     }
 });
+
+
+export default router;

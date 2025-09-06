@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 
+import mongoose from "mongoose";
 const BranchSchema = new mongoose.Schema({
     ownerId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -26,4 +26,4 @@ const BranchSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Branch', BranchSchema);
+export default mongoose.model('Branch', BranchSchema);

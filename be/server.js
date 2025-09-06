@@ -1,39 +1,40 @@
-import { app, PORT } from './config/config.js';
-import Court from './models/Court.js';
 
-import './routes/test.js';
-import './routes/courts.js';
-import './routes/human.js';
-import './routes/authenciation.js';
-import './routes/register.js';
-import './routes/branches.js';
-import './routes/pricelist.js'
 
-// Helper function to add sample data if database is empty
-/*
-async function initializeSampleData() {
-  try {
-    const courtCount = await Court.countDocuments();
-    if (courtCount === 0) {
-      console.log('📝 Adding sample courts to database...');
-      await Court.create([
-        { name: "A", isAvailable: false },
-        { name: "B", isAvailable: true },
-        { name: "C", isAvailable: true }
-      ]);
-      console.log('✅ Sample courts added!');
-    }
-  } catch (error) {
-    console.error('Error initializing sample data:', error);
-  }
-}
-  */
+import express from "express"
+import cors from "cors"
+import mongoose from "mongoose"
+import env from "./env.js"
 
-// Start server
-app.listen(PORT, async () => {
-  console.log(`🏸 Badminton Court Management Server running on port ${PORT}`);
-  console.log(`📡 API available at http://localhost:${PORT}/api`);
+import authoRouter from "./routes/authenciation.js"
+import branchRouter from "./routes/branches.js"
+import courtRouter from "./routes/courts.js"
+import humanRouter from "./routes/human.js"
+import priiceListRouter from "./routes/pricelist.js"
+import reginterRouter from "./routes/register.js"
 
-  // Add sample data if database is empty
-  // await initializeSampleData();
+
+const app = express();
+const PORT = env.PORT;
+
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
+app.use(express.json());
+
+
+app.use("/api/auth", authoRouter);
+app.use("/api/branches", branchRouter);
+app.use("/api/courts", courtRouter);
+app.use("/api/human", humanRouter);
+app.use("/api/priceList", priiceListRouter);
+app.use("/api/register", reginterRouter);
+
+mongoose.connect(env.MONGODB_URI)
+  .then(() => console.log('🍃 Connected to MongoDB'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });

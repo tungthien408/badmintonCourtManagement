@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+import mongoose from "mongoose";
 const VoucherSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -20,4 +19,4 @@ const VoucherSchema = new mongoose.Schema({
     description: String
 });
 
-module.exports = mongoose.model('Voucher', VoucherSchema);
+export default mongoose.model('Voucher', VoucherSchema);

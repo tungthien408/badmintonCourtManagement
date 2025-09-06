@@ -1,10 +1,4 @@
-// var jwt = 'jsonwebtoken';
-// require('dotenv').config();
-
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-const JWT_SECRET = process.env.JWT_SECRET;
+import { verifyJWT } from "../utils/jwt.js";
 
 function verifyRole(...allowedRoles) {
     return (req, res, next) => {
@@ -14,7 +8,7 @@ function verifyRole(...allowedRoles) {
         }
         const token = authHeader.split(' ')[1];
         try {
-            const decoded = jwt.verify(token, JWT_SECRET);
+            const decoded = verifyJWT(token);
             req.user = decoded;
             if (!allowedRoles.includes(req.user.role) || !req.user.role) {
                 return res.status(403).json({ message: "Forbidden" });    
