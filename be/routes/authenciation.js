@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
         return res.status(401).json({ message: 'Cannot find user' });
     } else {
         var token = generateJWT(account._id, account.role);
-        return res.status(200).json({message: 'authenticate sucessfully', token: token});
+        return res.status(200).json({message: 'authenticate successfully', token: token});
     }
 });
 
