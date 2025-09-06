@@ -12,6 +12,19 @@ app.post('/api/auth/login', async (req, res) => {
     try {
         const username = req.body['username'];
         const password = req.body['password'];
+
+        if (!username || !password) {
+            return res.status(400).json({ message: 'Username and password are required' });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+        }
+
+        if (username.length < 3) {
+            return res.status(400).json({ message: 'Username must be at least 3 characters long' });
+        }
+
         const hash = crypto.createHash('sha256');
         hash.update(password);
         const digest = hash.digest('hex');
@@ -30,6 +43,3 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
-// app.get('/api/auth/me', async (req, res) => {
-//     // TODO
-// });
