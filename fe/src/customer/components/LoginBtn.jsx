@@ -6,7 +6,7 @@ function LoginBtn() {
         navigate('/login');
     }
     return (
-        <button onClick={handleLogin}>Đăng nhập</button>
+        <a className="hover:text-[#EE5858] active:text-[#EE5858]" onClick={handleLogin}>Đăng nhập</a>
     )
 }
 
