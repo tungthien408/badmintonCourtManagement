@@ -1,9 +1,9 @@
-import { verifyRole } from "../middleware/middleware.js";
 import { app } from "../config/config.js";
-import { getUserBranches } from "../utils/branchUtils.js";
+import { verifyRole } from "../middleware/middleware.js";
 import Account from "../models/Account.js";
-import Human from "../models/Human.js";
 import Branch from "../models/Branch.js";
+import Human from "../models/Human.js";
+import { getUserBranches } from "../utils/branchUtils.js";
 
 app.get(`/api/branches`, verifyRole('owner'), async (req, res) => {
     try {
